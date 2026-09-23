@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+:root {
+  --paper: #f3eee4;
+  --paper-deep: #e7dfd1;
+  --card: #fffdf8;
+  --ink: #1c1915;
+  --ink-soft: #5e584e;
+  --forest: #1e4636;
+  --forest-deep: #143328;
+  --brass: #8d4e32;
+  --line: #e3d8c6;
+  --danger: #8d2f2f;
+}
+
+@theme inline {
+  --font-sans: var(--font-source-sans);
+  --font-serif: var(--font-fraunces);
+  --color-paper: var(--paper);
+  --color-paper-deep: var(--paper-deep);
+  --color-card: var(--card);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-forest: var(--forest);
+  --color-forest-deep: var(--forest-deep);
+  --color-brass: var(--brass);
+  --color-line: var(--line);
+  --color-danger: var(--danger);
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-source-sans), "Source Sans 3", sans-serif;
+}
