@@ -8,9 +8,10 @@ This is an interview prototype: one conversational agent, typed tools, and an ex
 
 ## Run it
 
-Node.js 20.9 or newer is required.
+Node.js 20.9 or newer is required. This machine’s default may be Node 18, which Next.js will refuse. `.nvmrc` selects Node 22.
 
 ```bash
+nvm use
 cp .env.example .env.local
 # Add GEMINI_API_KEY, or OPENAI_API_KEY, to .env.local
 
@@ -73,6 +74,11 @@ components/                    chat and the agent activity panel
 ```
 
 `search_policy` calls `retrievePolicies` in `lib/data/policies.ts`. That function is keyword lookup over four short articles. A different retriever can replace it without changing the agent.
+
+## Write-up
+
+- One-page architecture: [docs/architecture.md](docs/architecture.md)
+- Four-slide pitch: [docs/Bookly-SE-pitch.pptx](docs/Bookly-SE-pitch.pptx)
 
 ## Limits
 
