@@ -34,6 +34,7 @@ export function ChatInterface() {
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [pane, setPane] = useState<Pane>("chat");
+  const [showActivity, setShowActivity] = useState(true);
   const scrollerRef = useRef<HTMLDivElement>(null);
   const mountedRef = useRef(true);
 
@@ -117,6 +118,13 @@ export function ChatInterface() {
     setPane("chat");
   }
 
+  function toggleActivity() {
+    setShowActivity((open) => {
+      if (open) setPane("chat");
+      return !open;
+    });
+  }
+
   return (
     <div className="flex h-dvh flex-col bg-paper text-ink">
       <header className="flex items-center justify-between gap-4 border-b border-line bg-card px-4 py-3 sm:px-6">
@@ -127,26 +135,40 @@ export function ChatInterface() {
             <p className="mt-1 text-sm text-ink-soft">AI-powered customer care</p>
           </div>
         </div>
-        <button
-          type="button"
-          onClick={reset}
-          disabled={pending}
-          className="rounded-full border border-line px-3 py-1.5 text-sm text-ink hover:bg-paper disabled:cursor-not-allowed disabled:opacity-50"
-        >
-          New chat
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={toggleActivity}
+            aria-pressed={showActivity}
+            className="rounded-full border border-line px-3 py-1.5 text-sm text-ink hover:bg-paper"
+          >
+            {showActivity ? "Hide activity" : "Show activity"}
+          </button>
+          <button
+            type="button"
+            onClick={reset}
+            disabled={pending}
+            className="rounded-full border border-line px-3 py-1.5 text-sm text-ink hover:bg-paper disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            New chat
+          </button>
+        </div>
       </header>
 
-      <div className="flex border-b border-line lg:hidden">
-        <PaneTab label="Chat" selected={pane === "chat"} onClick={() => setPane("chat")} />
-        <PaneTab
-          label={trace.length > 0 ? `Activity ${trace.length}` : "Activity"}
-          selected={pane === "activity"}
-          onClick={() => setPane("activity")}
-        />
-      </div>
+      {showActivity ? (
+        <div className="flex border-b border-line lg:hidden">
+          <PaneTab label="Chat" selected={pane === "chat"} onClick={() => setPane("chat")} />
+          <PaneTab
+            label={trace.length > 0 ? `Activity ${trace.length}` : "Activity"}
+            selected={pane === "activity"}
+            onClick={() => setPane("activity")}
+          />
+        </div>
+      ) : null}
 
-      <div className="grid min-h-0 flex-1 lg:grid-cols-[minmax(0,1fr)_22.5rem]">
+      <div
+        className={`grid min-h-0 flex-1 ${showActivity ? "lg:grid-cols-[minmax(0,1fr)_22.5rem]" : ""}`}
+      >
         <section
           className={`${pane === "chat" ? "flex" : "hidden"} min-h-0 min-w-0 flex-col lg:flex`}
         >
@@ -238,7 +260,13 @@ export function ChatInterface() {
           </form>
         </section>
 
-        <div className={`${pane === "activity" ? "flex" : "hidden"} min-h-0 lg:flex`}>
+        <div
+          className={
+            showActivity
+              ? `${pane === "activity" ? "flex" : "hidden"} min-h-0 lg:flex`
+              : "hidden"
+          }
+        >
           <AgentTrace
             events={trace}
             pending={pending}

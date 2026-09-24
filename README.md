@@ -78,6 +78,7 @@ components/                    chat and the agent activity panel
 ## Write-up
 
 - One-page architecture: [docs/architecture.md](docs/architecture.md)
+- Request flow, with a diagram: [docs/request-flow.md](docs/request-flow.md)
 - Four-slide pitch: [docs/Bookly-SE-pitch.pptx](docs/Bookly-SE-pitch.pptx)
 
 ## Limits
