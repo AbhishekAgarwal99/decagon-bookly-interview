@@ -8,7 +8,7 @@ This is an interview prototype: one conversational agent, typed tools, and an ex
 
 ## Run it
 
-Node.js 20.9 or newer is required. This machine’s default may be Node 18, which Next.js will refuse. `.nvmrc` selects Node 22.
+Node.js 20.9 or newer is required. Next.js refuses to start on Node 18. If you use nvm, `.nvmrc` selects Node 22.
 
 ```bash
 nvm use
@@ -31,7 +31,7 @@ npm run verify
 
 ## Demo script
 
-**Order status.** Ask “Where is my order?” The assistant should ask for an order number and should not invent a status. Reply `BKL-1042`. The activity panel should show `get_order`, then a short status for a recently delivered order.
+**Order status.** Ask “Where is my order?” The assistant should ask for an order number and should not invent a status. Reply `BKL-1042`. The activity panel should show `get_order`, then a short status for a recently delivered order. The panel is open by default. **Hide activity** in the header closes it, and tool calls keep recording while it is hidden.
 
 **Return.** In the same chat, say “I want to return one of the books.” The assistant should remember `BKL-1042` and ask which book: Dune or Project Hail Mary. Choose Dune. It should call `check_return_eligibility` and ask “Would you like me to create the return?” It should not create the return yet. Reply “Yes.” Only then should `create_return` run, and the reply should include the return id from the tool (`RET-8817` on a fresh server).
 
@@ -79,7 +79,6 @@ components/                    chat and the agent activity panel
 
 - One-page architecture: [docs/architecture.md](docs/architecture.md)
 - Request flow, with a diagram: [docs/request-flow.md](docs/request-flow.md)
-- Four-slide pitch: [docs/Bookly-SE-pitch.pptx](docs/Bookly-SE-pitch.pptx)
 
 ## Limits
 
